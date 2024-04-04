@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:crypto_pulse/app_view/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -47,27 +48,33 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: myWidth * 0.14),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(50)),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: myWidth * 0.05, vertical: myWidth * 0.013),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Create Portfolio  ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const NavBar()));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: myWidth * 0.05, vertical: myWidth * 0.013),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Create Portfolio  ',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
-                      ),
-                      RotationTransition(
-                          turns: AlwaysStoppedAnimation(310 / 360),
-                          child: Icon(Icons.arrow_forward_rounded))
-                    ],
+                        RotationTransition(
+                            turns: AlwaysStoppedAnimation(310 / 360),
+                            child: Icon(Icons.arrow_forward_rounded))
+                      ],
+                    ),
                   ),
                 ),
               ),
