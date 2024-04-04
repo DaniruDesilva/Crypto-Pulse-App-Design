@@ -31,12 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.movie,
+              Icons.currency_exchange_rounded,
               size: 80,
-              color: Colors.green,
+              color: Color.fromARGB(255, 67, 10, 165),
             ),
             Text(
-              "Movie Hub",
+              "Crypto Pulse",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
