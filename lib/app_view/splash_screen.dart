@@ -1,9 +1,6 @@
-import 'dart:async';
+// ignore_for_file: sized_box_for_whitespace
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,40 +11,70 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return SafeArea(
+        child: Scaffold(
+      body: Container(
+        height: myHeight,
+        width: myWidth,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(
-              Icons.currency_exchange_rounded,
-              size: 80,
-              color: Color.fromARGB(255, 67, 10, 165),
+            Image.asset('assets/images/1.gif'),
+            const Column(
+              children: [
+                Text(
+                  'The Future of Currency',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Learn more about cryptocurrency, look to',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey),
+                ),
+                Text(
+                  'the future in crypto pulse',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey),
+                ),
+              ],
             ),
-            Text(
-              "Crypto Pulse",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
-            CupertinoActivityIndicator(
-              color: Colors.white,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: myWidth * 0.14),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(50)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: myWidth * 0.05, vertical: myWidth * 0.013),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Create Portfolio  ',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      RotationTransition(
+                          turns: AlwaysStoppedAnimation(310 / 360),
+                          child: Icon(Icons.arrow_forward_rounded))
+                    ],
+                  ),
+                ),
+              ),
             )
           ],
         ),
       ),
-    );
+    ));
   }
 }
