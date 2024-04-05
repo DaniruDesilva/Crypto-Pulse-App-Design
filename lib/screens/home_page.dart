@@ -1,5 +1,6 @@
 import 'package:crypto_pulse/models/coin_model.dart';
 import 'package:crypto_pulse/view/components/item.dart';
+import 'package:crypto_pulse/view/components/item2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
@@ -102,9 +103,16 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: myHeight * 0.67,
               width: myWidth,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey.shade300,
+                        spreadRadius: 3,
+                        offset: const Offset(0, 3))
+                  ],
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50),
                   )),
@@ -159,15 +167,25 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    height: myHeight * 0.02,
+                    height: myHeight * 0.01,
                   ),
                   Expanded(
-                    child: Container(
-                      // height: myHeight * 0.23,
-                      width: myWidth,
-                      color: Colors.green,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: myWidth * 0.03),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: coinMarket!.length,
+                        itemBuilder: (context, index) {
+                          return Item2(
+                            item: coinMarket![index],
+                          );
+                        },
+                      ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: myHeight * 0.01,
+                  ),
                 ],
               ),
             ),

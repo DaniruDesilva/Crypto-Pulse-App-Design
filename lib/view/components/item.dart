@@ -88,7 +88,9 @@ class Item extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "\$${item.priceChange24H.toStringAsFixed(2)}",
+                            item.priceChange24H.toString().contains('-')
+                                ? '-\$${item.priceChange24H.toStringAsFixed(2).toString().replaceAll('-', '')}'
+                                : "\$${item.priceChange24H.toStringAsFixed(2)}",
                             style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal,
