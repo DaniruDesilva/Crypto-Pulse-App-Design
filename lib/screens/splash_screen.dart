@@ -1,6 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
-import 'package:crypto_pulse/app_view/nav_bar.dart';
+import 'package:crypto_pulse/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
