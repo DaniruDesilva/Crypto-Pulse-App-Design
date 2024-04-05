@@ -10,6 +10,6 @@ class SelectCoin extends StatefulWidget {
 class _SelectCoinState extends State<SelectCoin> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const SafeArea(child: Scaffold());
   }
 }
