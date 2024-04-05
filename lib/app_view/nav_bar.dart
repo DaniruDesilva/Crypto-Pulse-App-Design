@@ -1,4 +1,4 @@
-import 'package:crypto_pulse/widgets/home_page.dart';
+import 'package:crypto_pulse/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatefulWidget {
