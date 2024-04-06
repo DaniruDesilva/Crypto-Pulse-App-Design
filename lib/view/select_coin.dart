@@ -10,6 +10,10 @@ class SelectCoin extends StatefulWidget {
 class _SelectCoinState extends State<SelectCoin> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold());
+    double myHeight = MediaQuery.of(context).size.height;
+    double myWidth = MediaQuery.of(context).size.width;
+    return const SafeArea(child: Scaffold(
+      
+    ));
   }
 }
