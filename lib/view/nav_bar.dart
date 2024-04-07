@@ -1,6 +1,8 @@
 import 'package:crypto_pulse/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/another_page.dart';
+
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
@@ -13,9 +15,9 @@ class _NavBarState extends State<NavBar> {
 
   List<Widget> pages = [
     const HomePage(),
-    const HomePage(),
-    const HomePage(),
-    const HomePage(),
+    const AnotherPage(),
+    const AnotherPage(),
+    const AnotherPage(),
   ];
 
   @override

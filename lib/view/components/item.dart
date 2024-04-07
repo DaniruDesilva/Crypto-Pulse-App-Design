@@ -20,7 +20,7 @@ class Item extends StatelessWidget {
               SizedBox(
                   height: myHeight * 0.05, child: Image.network(item.image)),
               SizedBox(
-                width: myWidth * 0.01,
+                width: myWidth * 0.02,
               ),
               Expanded(
                 flex: 2,

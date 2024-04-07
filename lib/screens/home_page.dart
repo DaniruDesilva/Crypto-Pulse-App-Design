@@ -137,20 +137,37 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: myHeight * 0.02,
                   ),
-                  isRefreshing == true
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          itemCount: 4,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Item(
-                              item: coinMarket![index],
-                            );
-                          },
-                        ),
+                  SizedBox(
+                    height: myHeight * 0.37,
+                    child: isRefreshing == true
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xffFBC700),
+                            ),
+                          )
+                        : coinMarket == null || coinMarket!.isEmpty
+                            ? Padding(
+                                padding: EdgeInsets.all(myHeight * 0.06),
+                                child: const Center(
+                                  child: Text(
+                                    'Attention this Api is-free, so you cannot send multiple requests per second, please wait and try again later. ',
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.red),
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: 4,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Item(
+                                    item: coinMarket![index],
+                                  );
+                                },
+                              ),
+                  ),
                   SizedBox(
                     height: myHeight * 0.02,
                   ),
@@ -172,15 +189,33 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(left: myWidth * 0.03),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: coinMarket!.length,
-                        itemBuilder: (context, index) {
-                          return Item2(
-                            item: coinMarket![index],
-                          );
-                        },
-                      ),
+                      child: isRefreshing == true
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Color(0xffFBC700),
+                              ),
+                            )
+                          : coinMarket == null || coinMarket!.isEmpty
+                              ? Padding(
+                                  padding: EdgeInsets.all(myHeight * 0.06),
+                                  child: const Center(
+                                    child: Text(
+                                      'Attention this Api is-free, so you cannot send multiple requests per second, please wait and try again later. ',
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.red),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: coinMarket!.length,
+                                  itemBuilder: (context, index) {
+                                    return Item2(
+                                      item: coinMarket![index],
+                                    );
+                                  },
+                                ),
                     ),
                   ),
                   SizedBox(

@@ -102,7 +102,7 @@ class _SelectCoinState extends State<SelectCoin> {
             ),
             const Divider(),
             Expanded(
-                child: ListView(
+                child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -189,30 +189,43 @@ class _SelectCoinState extends State<SelectCoin> {
                             color: Color(0xffFBC700),
                           ),
                         )
-                      : SfCartesianChart(
-                          trackballBehavior: trackballBehavior,
-                          zoomPanBehavior: ZoomPanBehavior(
-                              enablePanning: true, zoomMode: ZoomMode.x),
-                          series: <CandleSeries>[
-                            CandleSeries<ChartModel, int>(
-                              enableSolidCandles: true,
-                              enableTooltip: true,
-                              bullColor: Colors.green,
-                              bearColor: Colors.red,
-                              dataSource: itemChart,
-                              xValueMapper: (ChartModel sales, _) => sales.time,
-                              lowValueMapper: (ChartModel sales, _) =>
-                                  sales.low,
-                              highValueMapper: (ChartModel sales, _) =>
-                                  sales.high,
-                              openValueMapper: (ChartModel sales, _) =>
-                                  sales.open,
-                              closeValueMapper: (ChartModel sales, _) =>
-                                  sales.close,
-                              animationDuration: 55,
+                      : itemChart == null
+                          ? Padding(
+                              padding: EdgeInsets.all(myHeight * 0.06),
+                              child: const Center(
+                                child: Text(
+                                  'Attention this Api is-free, so you cannot send multiple requests per second, please wait and try again later. ',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.red),
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ),
                             )
-                          ],
-                        ),
+                          : SfCartesianChart(
+                              trackballBehavior: trackballBehavior,
+                              zoomPanBehavior: ZoomPanBehavior(
+                                  enablePinching: true, zoomMode: ZoomMode.x),
+                              series: <CandleSeries>[
+                                CandleSeries<ChartModel, int>(
+                                  enableSolidCandles: true,
+                                  enableTooltip: true,
+                                  bullColor: Colors.green,
+                                  bearColor: Colors.red,
+                                  dataSource: itemChart,
+                                  xValueMapper: (ChartModel sales, _) =>
+                                      sales.time,
+                                  lowValueMapper: (ChartModel sales, _) =>
+                                      sales.low,
+                                  highValueMapper: (ChartModel sales, _) =>
+                                      sales.high,
+                                  openValueMapper: (ChartModel sales, _) =>
+                                      sales.open,
+                                  closeValueMapper: (ChartModel sales, _) =>
+                                      sales.close,
+                                  animationDuration: 55,
+                                )
+                              ],
+                            ),
                 ),
                 SizedBox(
                   height: myHeight * 0.01,
@@ -267,37 +280,44 @@ class _SelectCoinState extends State<SelectCoin> {
                 SizedBox(
                   height: myHeight * 0.04,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: myWidth * 0.06),
-                  child: const Text(
-                    'News',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: myWidth * 0.06, vertical: myHeight * 0.01),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          'vhabejvehbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbonnfvoanerbaobnebeav vr ka re fffffffffffffffffffffffffffffffffffffffffffffffffrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssssssssssttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(color: Colors.grey, fontSize: 17),
-                        ),
+                Expanded(
+                    child: ListView(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: myWidth * 0.06),
+                      child: const Text(
+                        'News',
+                        style: TextStyle(fontSize: 25),
                       ),
-                      SizedBox(
-                        width: myWidth * 0.25,
-                        child: CircleAvatar(
-                          radius: myHeight * 0.04,
-                          backgroundImage:
-                              const AssetImage('assets/images/6456.PNG'),
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: myWidth * 0.06,
+                          vertical: myHeight * 0.01),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              'vhabejvehbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbonnfvoanerbaobnebeav vr ka re fffffffffffffffffffffffffffffffffffffffffffffffffrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssssssssssttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                              textAlign: TextAlign.justify,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 17),
+                            ),
+                          ),
+                          SizedBox(
+                            width: myWidth * 0.25,
+                            child: CircleAvatar(
+                              radius: myHeight * 0.04,
+                              backgroundImage:
+                                  const AssetImage('assets/images/6456.PNG'),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ))
               ],
             )),
             SizedBox(
