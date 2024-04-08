@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return SafeArea(
         child: Scaffold(
       body: Container(
+        color: Colors.black,
         height: myHeight,
         width: myWidth,
         child: Column(
