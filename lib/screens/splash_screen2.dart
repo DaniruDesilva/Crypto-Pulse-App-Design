@@ -29,7 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Text(
                   'The Future of Currency',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 Text(
                   'Learn more about cryptocurrency, look to',
