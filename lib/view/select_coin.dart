@@ -6,6 +6,10 @@ import 'package:logger/logger.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../models/chart_model.dart';
+import 'components/widgets/add_portfolio.dart';
+import 'components/widgets/custom_chart.dart';
+import 'components/widgets/custom_price_shower.dart';
+import 'components/widgets/news_bar.dart';
 
 class SelectCoin extends StatefulWidget {
   var selectItem;
@@ -33,7 +37,8 @@ class _SelectCoinState extends State<SelectCoin> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
-      body: SizedBox(
+      body: Container(
+        decoration: const BoxDecoration(color: Colors.white),
         height: myHeight,
         width: myWidth,
         child: Column(
@@ -110,68 +115,23 @@ class _SelectCoinState extends State<SelectCoin> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          const Text(
-                            'Low',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(
-                            height: myHeight * 0.01,
-                          ),
-                          Text(
-                            '\$${widget.selectItem.low24H.toString()}',
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black),
-                          ),
-                        ],
+                      CustomPriceShower(
+                        myHeight: myHeight,
+                        widget: widget,
+                        text: 'Low',
+                        value: widget.selectItem.low24H,
                       ),
-                      Column(
-                        children: [
-                          const Text(
-                            'High',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(
-                            height: myHeight * 0.01,
-                          ),
-                          Text(
-                            '\$${widget.selectItem.high24H.toString()}',
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black),
-                          ),
-                        ],
+                      CustomPriceShower(
+                        myHeight: myHeight,
+                        widget: widget,
+                        text: 'High',
+                        value: widget.selectItem.high24H,
                       ),
-                      Column(
-                        children: [
-                          const Text(
-                            'Vol',
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey),
-                          ),
-                          SizedBox(
-                            height: myHeight * 0.01,
-                          ),
-                          Text(
-                            '\$${'${widget.selectItem.totalVolume}M'}',
-                            style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black),
-                          ),
-                        ],
+                      CustomPriceShower(
+                        myHeight: myHeight,
+                        widget: widget,
+                        text: 'Vol',
+                        value: widget.selectItem.totalVolume,
                       ),
                     ],
                   ),
@@ -179,211 +139,74 @@ class _SelectCoinState extends State<SelectCoin> {
                 SizedBox(
                   height: myHeight * 0.02,
                 ),
-                SizedBox(
-                  height: myHeight * 0.4,
-                  width: myWidth,
-                  // color: Colors.amber,
-                  child: isRefresh == true
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: Color(0xffFBC700),
-                          ),
-                        )
-                      : itemChart == null
-                          ? Padding(
-                              padding: EdgeInsets.all(myHeight * 0.06),
-                              child: const Center(
-                                child: Text(
-                                  'Attention this Api is-free, so you cannot send multiple requests per second, please wait and try again later. ',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.red),
-                                  textAlign: TextAlign.justify,
+                Column(
+                  children: [
+                    CustomChart(
+                        myHeight: myHeight,
+                        myWidth: myWidth,
+                        isRefresh: isRefresh,
+                        itemChart: itemChart,
+                        trackballBehavior: trackballBehavior),
+                    SizedBox(
+                      height: myHeight * 0.01,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20)),
+                      height: myHeight * 0.035,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: text.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: myWidth * 0.02),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    textBool = [
+                                      false,
+                                      false,
+                                      false,
+                                      false,
+                                      false,
+                                      false
+                                    ];
+                                    textBool[index] = true;
+                                  });
+                                  setDays(text[index]);
+                                  getChart();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: myWidth * 0.03,
+                                      vertical: myHeight * 0.005),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: textBool[index] == true
+                                        ? const Color(0xffFBC700)
+                                            .withOpacity(0.3)
+                                        : Colors.transparent,
+                                  ),
+                                  child: Text(
+                                    text[index],
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
                                 ),
                               ),
-                            )
-                          : SfCartesianChart(
-                              trackballBehavior: trackballBehavior,
-                              zoomPanBehavior: ZoomPanBehavior(
-                                  enablePinching: true, zoomMode: ZoomMode.x),
-                              series: <CandleSeries>[
-                                CandleSeries<ChartModel, int>(
-                                  enableSolidCandles: true,
-                                  enableTooltip: true,
-                                  bullColor: Colors.green,
-                                  bearColor: Colors.red,
-                                  dataSource: itemChart,
-                                  xValueMapper: (ChartModel sales, _) =>
-                                      sales.time,
-                                  lowValueMapper: (ChartModel sales, _) =>
-                                      sales.low,
-                                  highValueMapper: (ChartModel sales, _) =>
-                                      sales.high,
-                                  openValueMapper: (ChartModel sales, _) =>
-                                      sales.open,
-                                  closeValueMapper: (ChartModel sales, _) =>
-                                      sales.close,
-                                  animationDuration: 55,
-                                )
-                              ],
-                            ),
-                ),
-                SizedBox(
-                  height: myHeight * 0.01,
-                ),
-                Center(
-                  child: SizedBox(
-                    height: myHeight * 0.035,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: text.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: myWidth * 0.02),
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  textBool = [
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false
-                                  ];
-                                  textBool[index] = true;
-                                });
-                                setDays(text[index]);
-                                getChart();
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: myWidth * 0.03,
-                                    vertical: myHeight * 0.005),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: textBool[index] == true
-                                      ? const Color(0xffFBC700).withOpacity(0.3)
-                                      : Colors.transparent,
-                                ),
-                                child: Text(
-                                  text[index],
-                                  style: const TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: myHeight * 0.04,
                 ),
-                Expanded(
-                    child: ListView(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: myWidth * 0.06),
-                      child: const Text(
-                        'News',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: myWidth * 0.06,
-                          vertical: myHeight * 0.01),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Expanded(
-                            child: Text(
-                              'vhabejvehbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbonnfvoanerbaobnebeav vr ka re fffffffffffffffffffffffffffffffffffffffffffffffffrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssssssssssttttttttttttttttttttttttttttttttttttttttttttttnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-                              textAlign: TextAlign.justify,
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 17),
-                            ),
-                          ),
-                          SizedBox(
-                            width: myWidth * 0.25,
-                            child: CircleAvatar(
-                              radius: myHeight * 0.04,
-                              backgroundImage:
-                                  const AssetImage('assets/images/6456.PNG'),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ))
+                NewsBar(myWidth: myWidth, myHeight: myHeight)
               ],
             )),
-            SizedBox(
-              height: myHeight * 0.1,
-              width: myWidth,
-              // color: Colors.amber,
-              child: Column(
-                children: [
-                  const Divider(),
-                  SizedBox(
-                    height: myHeight * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: myWidth * 0.05,
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: myHeight * 0.015),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: const Color(0xffFBC700)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                size: myHeight * 0.02,
-                              ),
-                              const Text(
-                                'Add to portfolio',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: myWidth * 0.05,
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: myHeight * 0.012),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey.withOpacity(0.2)),
-                          child: Image.asset(
-                            'assets/icons/3.1.png',
-                            height: myHeight * 0.03,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: myWidth * 0.05,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
+            AddPortfolioBar(myHeight: myHeight, myWidth: myWidth)
           ],
         ),
       ),

@@ -39,6 +39,7 @@ dependencies:
   logger: ^2.2.0
   chart_sparkline: ^1.0.15+1
   syncfusion_flutter_charts: ^25.1.38
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
