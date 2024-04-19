@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,7 @@ class Item extends StatelessWidget {
       child: Expanded(
         flex: 1,
         child: Container(
+          decoration: const BoxDecoration(color: Colors.white),
           child: Row(
             children: [
               SizedBox(

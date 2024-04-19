@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -11,7 +13,9 @@ import 'components/widgets/custom_chart.dart';
 import 'components/widgets/custom_price_shower.dart';
 import 'components/widgets/news_bar.dart';
 
+// ignore: must_be_immutable
 class SelectCoin extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   var selectItem;
 
   SelectCoin({super.key, this.selectItem});

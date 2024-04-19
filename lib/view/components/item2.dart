@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:crypto_pulse/view/select_coin.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,12 @@ class Item2 extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: myWidth * 0.03),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) =>  SelectCoin(selectItem: item,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SelectCoin(
+                        selectItem: item,
+                      )));
         },
         child: Container(
           padding: EdgeInsets.only(
